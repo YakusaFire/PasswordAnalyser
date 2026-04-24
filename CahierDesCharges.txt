@@ -1,0 +1,61 @@
+C'est un excellent choix pour un étudiant en BTS CYEL. C'est un projet qui mêle algorithmique pure, logique de sécurité et manipulation de données.
+
+Voici une "feuille de route" des fonctionnalités, classées de la plus basique à la plus avancée, pour transformer un simple script en un vrai projet de CV.
+1. Les vérifications de base (Le cœur du programme)
+
+Le programme doit analyser la structure du mot de passe selon les critères de la CNIL ou de l'ANSSI.
+
+    Longueur minimale : Vérifier si le mot de passe fait au moins 12 ou 14 caractères.
+
+    Présence de types de caractères :
+
+        Au moins une majuscule.
+
+        Au moins une minuscule.
+
+        Au moins un chiffre.
+
+        Au moins un caractère spécial (ex: !, @, #, $, %).
+
+    Calcul d'un score : Attribuer une note (ex: sur 100) ou un niveau (Faible, Moyen, Fort, Très Fort) en fonction des critères remplis.
+
+2. L'analyse de robustesse "intelligente"
+
+C'est ici que tu montres que tu es en CYEL et que tu comprends la menace.
+
+    Détection de suites logiques : Alerter si l'utilisateur utilise "12345", "abcd" ou "azerty".
+
+    Vérification de dictionnaire : Comparer le mot de passe à une liste de mots courants (ex: "soleil", "password", "admin"). Si le mot de passe est dans la liste, il est considéré comme nul, peu importe sa longueur.
+
+    Calcul de l'entropie : Utiliser une formule mathématique pour calculer la résistance théorique aux attaques par force brute.
+
+        Note technique : L'entropie se calcule avec la formule E=L×log2​(R), où L est la longueur et R le nombre de caractères possibles.
+
+3. L'expérience utilisateur (Le côté "Pro")
+
+Un bon développeur pense à celui qui utilise son outil.
+
+    Feedback détaillé : Ne pas juste dire "C'est faible". Expliquer pourquoi : "Ajoutez au moins un caractère spécial pour augmenter la sécurité de 20%".
+
+    Masquage de la saisie : Faire en sorte que les caractères ne s'affichent pas en clair quand on les tape dans la console (utiliser getpass en Python par exemple).
+
+    Générateur de mot de passe : Si le mot de passe est trop faible, proposer à l'utilisateur d'en générer un aléatoire et robuste (ex: 16 caractères mélangés).
+
+4. Les "Plus" pour ton CV (Niveau expert)
+
+Si tu veux vraiment impressionner pour un stage :
+
+    Export de rapport : Sauvegarder l'analyse dans un petit fichier .txt ou .json.
+
+    Simulation de Brute Force : Estimer le temps qu'il faudrait à un ordinateur pour craquer le mot de passe (ex: "300 ans" vs "2 secondes").
+
+    Interface Graphique (Optionnel) : Si tu es à l'aise, au lieu d'une console noire, fais une petite fenêtre avec des boutons et des barres de progression de couleur (vert/rouge) via une bibliothèque comme Tkinter (Python).
+
+Résumé des étapes de développement pour ton organisation :
+Étape	Fonctionnalité	Difficulté
+1	Input utilisateur + vérification longueur et types de caractères	⭐
+2	Système de score et messages d'erreurs	⭐
+3	Détection des suites (123...) et dictionnaire simple	⭐⭐
+4	Calcul de l'entropie mathématique	⭐⭐
+5	Création du générateur de mots de passe robustes	⭐⭐
+6	Interface graphique ou Masquage de saisie	⭐⭐⭐
