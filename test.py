@@ -1,6 +1,15 @@
-import nltk
-nltk.download("cess_fra")  # Corpus français
+import os
+import urllib.request
 
-from nltk.corpus import cess_fra
-mots = list(set(cess_fra.words()))
-print(mots[:10])
+DICO_PATH = "/home/2039nngy/Documents/PROJECT/PasswordAnalyser/dictionary.txt"
+
+if not os.path.exists(DICO_PATH):
+    print("Téléchargement du dictionnaire...")
+    url = "https://raw.githubusercontent.com/chrplr/openlexicon/master/datasets-info/Liste-de-mots-francais-Gutenberg/liste.de.mots.francais.frgut.txt"
+    urllib.request.urlretrieve(url, DICO_PATH)
+    print("Téléchargement terminé.")
+
+with open(DICO_PATH, "r", encoding="utf-8") as f:
+    DICO = set(ligne.strip().lower() for ligne in f if ligne.strip())
+
+print(f"{len(DICO)} mots chargés")

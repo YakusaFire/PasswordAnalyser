@@ -1,9 +1,14 @@
 import getpass
-import enchant
+#import enchant
 
-DICO = enchant.Dict("fr_FR")
+
+#DICO = enchant.Dict("fr_FR")
+DICO_PATH = "/home/2039nngy/Documents/PROJECT/PasswordAnalyser/dictionary.txt"
 PASSWD = getpass.getpass('Votre mot de passe: ')
 SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+
+with open(DICO_PATH, "r", encoding="utf-8") as f:
+    DICO = set(ligne.strip().lower() for ligne in f if ligne.strip())
 
 
 def check_len(password):
@@ -37,7 +42,10 @@ def check_special(password):
     return False
 
 def check_dico(password):
-    pass
+    for mot in DICO:
+        if mot in PASSWD:
+            return False
+    return True
 
 def main_check(password):
     print("\n ---Conseils---")
