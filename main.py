@@ -4,6 +4,8 @@ from string import ascii_lowercase, ascii_uppercase, digits
 import customtkinter as ctk
 import sys
 import os
+import pyperclip
+
 
 def resource_path(relative_path):
     """ Récupère le chemin absolu des ressources (pour PyInstaller) """
@@ -165,6 +167,7 @@ class App(ctk.CTk):
         self.entry = ctk.CTkEntry(self, placeholder_text="Entrer le mot de passe", width=350, show="*")
         self.entry.pack(pady=10)
         self.entry.bind("<KeyRelease>", self.update_analysis)
+
         # Barre de progression du score
         self.progressbar = ctk.CTkProgressBar(self, width=350)
         self.progressbar.set(0)
@@ -178,9 +181,23 @@ class App(ctk.CTk):
         self.entropy_label = ctk.CTkLabel(self, text="Entropie : 0 bits", font=("Roboto", 14))
         self.entropy_label.pack(pady=5)
 
+        # Zone de texte mot de passe généré
+        self.gen_text = ctk.CTkTextbox(self, width=350, height=20)
+        self.gen_text.pack(pady=10)
+
         # Bouton de génération
         self.gen_button = ctk.CTkButton(self, text="Générer un mot de passe parfait", command=self.fill_generated)
         self.gen_button.pack(pady=20)
+
+        # Bouton copier mot de passe
+        self.copy_button = ctk.CTkButton(self, text="Copier mot de passe parfait", command=self.copy_mdp)
+        self.copy_button.pack(pady=5)
+
+    def copy_mdp(self):
+        password = self.gen_text.get(1.0, "end-1c")
+        pyperclip.copy(password)
+        self.gen_text.delete("1.0", "end")
+        self.gen_text.insert("1.0", "✅ Mot de passe copié !")
 
     def update_analysis(self, event=None):
         password = self.entry.get()
@@ -248,8 +265,8 @@ class App(ctk.CTk):
 
     def fill_generated(self):
         new_pass = generate_perfect_password()
-        self.entry.delete(0, "end")
-        self.entry.insert(0, new_pass)
+        self.gen_text.delete(1.0, "end")
+        self.gen_text.insert(1.0, new_pass)
         self.update_analysis()
 
 if __name__ == "__main__":
