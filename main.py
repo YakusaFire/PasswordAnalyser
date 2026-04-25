@@ -9,36 +9,66 @@ with open(DICO_PATH, "r", encoding="utf-8") as f:
 
 
 def check_len(password):
+    """
+    Vérifie si la taille du mot de passe est supérieur à 12 caracteres
+    :param password:
+    :return bool:
+    """
     if len(password) < 12:
         return False
     else:
         return True
 
 def check_chiffre(password):
+    """
+    Vérifie que le mot de passe contient au moins un chiffre
+    :param password:
+    :return bool:
+    """
     for caract in password:
         if caract.isdigit():
             return True
     return False
 
 def check_maj(password):
+    """
+    Vérifie que le mot de passe contient une majuscule
+    :param password:
+    :return bool:
+    """
     for caract in password:
         if caract.isupper():
             return True
     return False
 
 def check_minus(password):
+    """
+    Vérifie que le mot de passe contient une minuscule
+    :param password:
+    :return bool:
+    """
     for caract in password:
         if caract.islower():
             return True
     return False
 
 def check_special(password):
+    """
+    Vérifie que le mot de passe contient au moins un caractère spécial
+    :param password:
+    :return bool:
+    """
     for caract in password:
         if caract in SPECIAL_CARACT:
             return True
     return False
 
 def check_dico(password):
+    """
+    Vérifie que le mot de passe ne contient pas de mot du dictionnaire
+    :param password:
+    :return score(int):
+    """
     for mot in DICO:
         if len(mot) < 3:
             continue
@@ -47,6 +77,11 @@ def check_dico(password):
     return True
 
 def main_check(password):
+    """
+    Applique tous les checks au mot de passe pour lui attribuer un score
+    :param password:
+    :return str:
+    """
     print("\n ---Conseils---")
     score = 0
     if check_chiffre(password):
@@ -80,7 +115,9 @@ def main_check(password):
 
     print("---Fin Conseils--- \n")
 
-    return f"Le score de votre mot de passe est de {score}%"
+    print(f"Votre score de mot de passe est de {max(0, score)}%")
+
+    return score
 
 
 if len(PASSWD) == 0:
