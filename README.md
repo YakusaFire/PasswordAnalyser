@@ -7,3 +7,5 @@ Il vérifie aussi qu'il ne contient pas de mot du dictionnaire français ainsi q
 
 Il fait un calcul d'entropie pour juger de la force mathématique du mot de passe, a l'aide de cette formule: 
 E=L×log2(R)
+
+Il comprend aussi une fonction de création de mot de passe qui suis les recommandation de l'ANSSI
