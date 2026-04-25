@@ -3,7 +3,7 @@ import getpass
 
 
 #DICO = enchant.Dict("fr_FR")
-DICO_PATH = "/home/2039nngy/Documents/PROJECT/PasswordAnalyser/dictionary.txt"
+DICO_PATH = "dictionary.txt"
 PASSWD = getpass.getpass('Votre mot de passe: ')
 SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
@@ -45,10 +45,8 @@ def check_dico(password):
     for mot in DICO:
         if len(mot) < 3:
             continue
-
-        if mot in PASSWD or mot.capitalize() in PASSWD:
-            print(mot)
-            return False
+        if mot in password.lower():
+            return False, mot
     return True
 
 def main_check(password):
