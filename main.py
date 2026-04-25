@@ -28,6 +28,7 @@ def check_chiffre(password):
     for caract in password:
         if caract.isdigit():
             return True
+
     return False
 
 def check_maj(password):
@@ -39,6 +40,7 @@ def check_maj(password):
     for caract in password:
         if caract.isupper():
             return True
+
     return False
 
 def check_minus(password):
@@ -50,6 +52,7 @@ def check_minus(password):
     for caract in password:
         if caract.islower():
             return True
+
     return False
 
 def check_special(password):
@@ -61,6 +64,7 @@ def check_special(password):
     for caract in password:
         if caract in SPECIAL_CARACT:
             return True
+
     return False
 
 def check_dico(password):
@@ -74,6 +78,23 @@ def check_dico(password):
             continue
         if mot in password.lower():
             return False
+
+    return True
+
+def check_suite(password):
+    """
+    Vérifie que le mot de passe contient ne contient pas de liste suite
+    :param password:
+    :return bool:
+    """
+    for i in range(len(password) - 2):
+        char1 = ord(password[i])
+        char2 = ord(password[i + 1])
+        char3 = ord(password[i + 2])
+
+        if char2 == char1 + 1 and char3 == char2 + 1:
+            return False
+
     return True
 
 def main_check(password):
@@ -112,6 +133,10 @@ def main_check(password):
     if not check_dico(password):
         score -= 50
         print("Vous devirez pas mettre de mot du dictionnaire dans votre mot de passe")
+
+    if not check_suite(password):
+        score -= 50
+        print("Votre mot de passe contient une suite")
 
     print("---Fin Conseils--- \n")
 
