@@ -1,8 +1,5 @@
 import getpass
-#import enchant
 
-
-#DICO = enchant.Dict("fr_FR")
 DICO_PATH = "dictionary.txt"
 PASSWD = getpass.getpass('Votre mot de passe: ')
 SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
@@ -46,7 +43,7 @@ def check_dico(password):
         if len(mot) < 3:
             continue
         if mot in password.lower():
-            return False, mot
+            return False
     return True
 
 def main_check(password):
