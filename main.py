@@ -92,7 +92,7 @@ def check_suite(password):
         char2 = ord(password[i + 1])
         char3 = ord(password[i + 2])
 
-        if char2 == char1 + 1 and char3 == char2 + 1:
+        if (char2 == char1 + 1 and char3 == char2 + 1) or (char2 == char1 - 1 and char3 == char2 - 1):
             return False
 
     return True
