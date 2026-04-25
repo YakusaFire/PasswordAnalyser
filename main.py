@@ -120,7 +120,8 @@ def main_check(password):
     return score
 
 
-if len(PASSWD) == 0:
-    quit()
-
-print(main_check(PASSWD))
+if __name__ == "__main__":
+    if len(PASSWD) == 0:
+        print("Rentrer un mot de passe")
+        quit()
+    main_check(PASSWD)
