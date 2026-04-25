@@ -1,4 +1,5 @@
 import getpass
+from math import log2
 
 DICO_PATH = "dictionary.txt"
 PASSWD = getpass.getpass('Votre mot de passe: ')
@@ -97,6 +98,12 @@ def check_suite(password):
 
     return True
 
+def calcul_entropie(password):
+    L = len(password)
+    R = 90
+    entropie = L * log2(R)
+    return round(entropie, 2)
+
 def main_check(password):
     """
     Applique tous les checks au mot de passe pour lui attribuer un score
@@ -141,6 +148,7 @@ def main_check(password):
     print("---Fin Conseils--- \n")
 
     print(f"Votre score de mot de passe est de {max(0, score)}%")
+    print(f"La force mathématique de votre mot de passe est de {calcul_entropie(password)} bits")
 
     return score
 
