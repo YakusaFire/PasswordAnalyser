@@ -2,9 +2,19 @@ from math import log2
 from secrets import choice, SystemRandom
 from string import ascii_lowercase, ascii_uppercase, digits
 import customtkinter as ctk
+import sys
+import os
 
+def resource_path(relative_path):
+    """ Récupère le chemin absolu des ressources (pour PyInstaller) """
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
-DICO_PATH = "dictionary.txt"
+# Modifie ta variable DICO_PATH ainsi :
+DICO_PATH = resource_path("dictionary.txt")
 SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
 
