@@ -1,6 +1,8 @@
 # PasswordAnalyser
 
-PasswordAnalyser est un programme qui permet de vérifier si un mot de passe est robuste, il crée aussi des mot de passe parfait.
+PasswordAnalyser est un programme qui permet de vérifier si un mot de passe est robuste, il crée aussi des mot de passe parfait.  
+Il permet de vérifier si le mot de passe contient bien une majuscule, une minuscule, un chiffre, un caractère spécial.  
+Il vérifie si le mot de passe ne contient pas de mot de la langue française ainsi que de suite logique.
 
 Pour crée un exe: 
 
