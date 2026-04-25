@@ -1,10 +1,13 @@
 import getpass
 from math import log2
+from secrets import choice, SystemRandom
+from string import ascii_lowercase, ascii_uppercase, digits
 
 DICO_PATH = "dictionary.txt"
 print("Mettez '?' pour crée un mot de passe aléatoire")
 PASSWD = getpass.getpass('Votre mot de passe: ')
 SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+
 
 with open(DICO_PATH, "r", encoding="utf-8") as f:
     DICO = set(ligne.strip().lower() for ligne in f if ligne.strip())
@@ -111,8 +114,7 @@ def calcul_entropie(password):
     return round(entropie, 2)
 
 
-import secrets
-import string
+
 
 
 def generate_perfect_password(length=16):
@@ -121,24 +123,25 @@ def generate_perfect_password(length=16):
     :param length:
     :return str:
     """
-    minuscules = string.ascii_lowercase
-    majuscules = string.ascii_uppercase
-    chiffres = string.digits
+    minuscules = ascii_lowercase
+    majuscules = ascii_uppercase
+    chiffres = digits
     speciaux = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
+    # Met au minimum un caractère de chaque type
     password = [
-        secrets.choice(minuscules),
-        secrets.choice(majuscules),
-        secrets.choice(chiffres),
-        secrets.choice(speciaux)
+        choice(minuscules),
+        choice(majuscules),
+        choice(chiffres),
+        choice(speciaux)
     ]
 
     tous_les_caracteres = minuscules + majuscules + chiffres + speciaux
     for _ in range(length - 4):
-        password.append(secrets.choice(tous_les_caracteres))
+        password.append(choice(tous_les_caracteres))
 
 
-    secrets.SystemRandom().shuffle(password)
+    SystemRandom().shuffle(password)
 
     return "".join(password)
 
