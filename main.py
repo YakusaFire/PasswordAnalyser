@@ -43,7 +43,11 @@ def check_special(password):
 
 def check_dico(password):
     for mot in DICO:
-        if mot in PASSWD:
+        if len(mot) < 3:
+            continue
+
+        if mot in PASSWD or mot.capitalize() in PASSWD:
+            print(mot)
             return False
     return True
 
@@ -56,12 +60,12 @@ def main_check(password):
         print("Vous devriez mettre des chiffres dans votre mot de passe")
 
     if check_len(password):
-        score += 20
+        score += 40
     else:
         print("Votre mot de passe est trop court")
 
     if check_minus(password):
-        score += 20
+        score += 10
     else:
         print("Vous devriez mettre des lettre minuscule")
 
@@ -71,18 +75,20 @@ def main_check(password):
         print("Vous devriez mettre des caractères spéciaux")
 
     if check_maj(password):
-        score += 20
+        score += 10
     else:
         print("Vous devriez mettre des majuscules")
+
+    if not check_dico(password):
+        score -= 50
+        print("Vous devirez pas mettre de mot du dictionnaire dans votre mot de passe")
 
     print("---Fin Conseils--- \n")
 
     return f"Le score de votre mot de passe est de {score}%"
 
+
 if len(PASSWD) == 0:
     quit()
 
-#print(main_check(PASSWD))
-
-if "" in DICO:
-    print("Le mot est dans le dico")
+print(main_check(PASSWD))
