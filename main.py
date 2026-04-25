@@ -17,7 +17,7 @@ def resource_path(relative_path):
 
 # Modifie ta variable DICO_PATH ainsi :
 DICO_PATH = resource_path("dictionary.txt")
-SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+SPECIAL_CHART = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
 
 with open(DICO_PATH, "r", encoding="utf-8") as f:
@@ -41,8 +41,8 @@ def check_chiffre(password):
     :param password:
     :return bool:
     """
-    for caract in password:
-        if caract.isdigit():
+    for chart in password:
+        if chart.isdigit():
             return True
 
     return False
@@ -53,8 +53,8 @@ def check_maj(password):
     :param password:
     :return bool:
     """
-    for caract in password:
-        if caract.isupper():
+    for chart in password:
+        if chart.isupper():
             return True
 
     return False
@@ -65,8 +65,8 @@ def check_minus(password):
     :param password:
     :return bool:
     """
-    for caract in password:
-        if caract.islower():
+    for chart in password:
+        if chart.islower():
             return True
 
     return False
@@ -77,8 +77,8 @@ def check_special(password):
     :param password:
     :return bool:
     """
-    for caract in password:
-        if caract in SPECIAL_CARACT:
+    for chart in password:
+        if chart in SPECIAL_CHART:
             return True
 
     return False
@@ -204,7 +204,7 @@ class App(ctk.CTk):
 
     def update_analysis(self, event=None):
         """
-        Permet de mettre a jour l'analyse du mot de passe en continu
+        Permet de mettre à jour l'analyse du mot de passe en continu
         """
         password = self.entry.get()
         if not password:
