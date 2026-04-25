@@ -1,11 +1,10 @@
-import getpass
 from math import log2
 from secrets import choice, SystemRandom
 from string import ascii_lowercase, ascii_uppercase, digits
+import customtkinter as ctk
+
 
 DICO_PATH = "dictionary.txt"
-print("Mettez '?' pour crée un mot de passe aléatoire")
-PASSWD = getpass.getpass('Votre mot de passe: ')
 SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
 
@@ -113,10 +112,6 @@ def calcul_entropie(password):
     entropie = L * log2(R)
     return round(entropie, 2)
 
-
-
-
-
 def generate_perfect_password(length=16):
     """
     Permet de générer le mot de passe parfait
@@ -145,60 +140,108 @@ def generate_perfect_password(length=16):
 
     return "".join(password)
 
-def main_check(password):
-    """
-    Applique tous les checks au mot de passe pour lui attribuer un score
-    :param password:
-    :return str:
-    """
-    print("\n ---Conseils---")
-    score = 0
-    if check_chiffre(password):
-        score += 20
-    else:
-        print("Vous devriez mettre des chiffres dans votre mot de passe")
 
-    if check_len(password):
-        score += 40
-    else:
-        print("Votre mot de passe est trop court")
+class App(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title = "PasswordAnalyser"
+        self.geometry = "500x600"
 
-    if check_minus(password):
-        score += 10
-    else:
-        print("Vous devriez mettre des lettre minuscule")
+        #Titre
+        self.label = ctk.CTkLabel(self, text="Password Analyser", font=("Roboto", 24, "bold"))
+        self.label.pack(pady=20)
 
-    if check_special(password):
-        score += 20
-    else:
-        print("Vous devriez mettre des caractères spéciaux")
+        #Mot de passe
+        self.entry = ctk.CTkEntry(self, placeholder_text="Entrer le mot de passe", width=350, show="*")
+        self.entry.pack(pady=10)
+        self.entry.bind("<KeyRelease>", self.update_analysis)
+        # Barre de progression du score
+        self.progressbar = ctk.CTkProgressBar(self, width=350)
+        self.progressbar.set(0)
+        self.progressbar.pack(pady=10)
 
-    if check_maj(password):
-        score += 10
-    else:
-        print("Vous devriez mettre des majuscules")
+        # Zone de texte pour les conseils
+        self.result_text = ctk.CTkTextbox(self, width=350, height=150)
+        self.result_text.pack(pady=10)
 
-    if not check_dico(password):
-        score -= 50
-        print("Vous devriez pas mettre de mot du dictionnaire dans votre mot de passe")
+        # Labels pour l'entropie
+        self.entropy_label = ctk.CTkLabel(self, text="Entropie : 0 bits", font=("Roboto", 14))
+        self.entropy_label.pack(pady=5)
 
-    if not check_suite(password):
-        score -= 50
-        print("Votre mot de passe contient une suite")
+        # Bouton de génération
+        self.gen_button = ctk.CTkButton(self, text="Générer un mot de passe parfait", command=self.fill_generated)
+        self.gen_button.pack(pady=20)
 
-    print("---Fin Conseils--- \n")
+    def update_analysis(self, event=None):
+        password = self.entry.get()
+        if not password:
+            self.progressbar.set(0)
+            return
 
-    print(f"Votre score de mot de passe est de {max(0, score)}%")
-    print(f"La force mathématique de votre mot de passe est de {calcul_entropie(password)} bits")
+        score = 0
+        feedback = []
 
-    return score
+        # Application de tes tests
+        if check_chiffre(password):
+            score += 20
+        else:
+            feedback.append("- Ajoutez des chiffres")
 
+        if check_len(password):
+            score += 40
+        else:
+            feedback.append("- Trop court (12 min)")
+
+        if check_minus(password):
+            score += 10
+        else:
+            feedback.append("- Manque minuscules")
+
+        if check_maj(password):
+            score += 10
+        else:
+            feedback.append("- Manque majuscules")
+
+        if check_special(password):
+            score += 20
+        else:
+            feedback.append("- Manque caractères spéciaux")
+
+        if not check_dico(password):
+            score -= 50
+            feedback.append("⚠️ MOT DU DICTIONNAIRE DÉTECTÉ")
+
+        if not check_suite(password):
+            score -= 50
+            feedback.append("⚠️ SUITE LOGIQUE DÉTECTÉE")
+
+        actual_score = max(0, score)
+
+        # Mise à jour de l'UI
+        self.progressbar.set(actual_score / 100)
+
+        # Couleur de la barre selon le score
+        if actual_score < 50:
+            self.progressbar.configure(progress_color="red")
+        elif actual_score < 90:
+            self.progressbar.configure(progress_color="orange")
+        else:
+            self.progressbar.configure(progress_color="green")
+
+        self.entropy_label.configure(text=f"Entropie : {calcul_entropie(password)} bits")
+
+        self.result_text.delete("1.0", "end")
+        if not feedback:
+            self.result_text.insert("1.0", "Mot de passe excellent !")
+        else:
+            self.result_text.insert("1.0", "\n".join(feedback))
+
+    def fill_generated(self):
+        new_pass = generate_perfect_password()
+        self.entry.delete(0, "end")
+        self.entry.insert(0, new_pass)
+        self.update_analysis()
 
 if __name__ == "__main__":
-    if len(PASSWD) == 0:
-        print("Rentrer un mot de passe")
-        quit()
-    if PASSWD == "?":
-        print(generate_perfect_password(length=16))
-    else:
-        main_check(PASSWD)
+     app = App()
+     app.mainloop()
