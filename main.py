@@ -15,7 +15,7 @@ with open(DICO_PATH, "r", encoding="utf-8") as f:
 
 def check_len(password):
     """
-    Vérifie si la taille du mot de passe est supérieur à 12 caracteres
+    Vérifie si la taille du mot de passe est supérieur à 12 caractères
     :param password:
     :return bool:
     """
@@ -180,7 +180,7 @@ def main_check(password):
 
     if not check_dico(password):
         score -= 50
-        print("Vous devirez pas mettre de mot du dictionnaire dans votre mot de passe")
+        print("Vous devriez pas mettre de mot du dictionnaire dans votre mot de passe")
 
     if not check_suite(password):
         score -= 50
