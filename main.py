@@ -181,9 +181,14 @@ class App(ctk.CTk):
         self.entropy_label = ctk.CTkLabel(self, text="Entropie : 0 bits", font=("Roboto", 14))
         self.entropy_label.pack(pady=5)
 
+
+        # Titre section mot de passe généré
+        self.title2_label = ctk.CTkLabel(self, text="Générer mot de passe parfait", font=("Roboto", 24))
+        self.title2_label.pack(pady=(20, 10))
+
         # Zone de texte mot de passe généré
         self.gen_text = ctk.CTkTextbox(self, width=350, height=20)
-        self.gen_text.pack(pady=(30, 5))
+        self.gen_text.pack(pady=(5, 5))
 
         # Label taille mot de passe généré
         self.slider_label = ctk.CTkLabel(self, text="Longueur : 16", font=("Roboto", 14))
@@ -202,8 +207,8 @@ class App(ctk.CTk):
         self.copy_button = ctk.CTkButton(self, text="Copier mot de passe parfait", command=self.copy_mdp)
         self.copy_button.pack(pady=5)
 
-    def update_slider_label(self):
-        self.slider_label.configure(text=f"Longueur : {int(self.len_slider.get())}")
+    def update_slider_label(self, valeur):
+        self.slider_label.configure(text=f"Longueur : {int(valeur)}")
 
     def copy_mdp(self):
         """
