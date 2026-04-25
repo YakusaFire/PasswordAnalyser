@@ -1,10 +1,11 @@
+import os
+import sys
+import pyperclip
 from math import log2
+import customtkinter as ctk
 from secrets import choice, SystemRandom
 from string import ascii_lowercase, ascii_uppercase, digits
-import customtkinter as ctk
-import sys
-import os
-import pyperclip
+
 
 
 def resource_path(relative_path):
