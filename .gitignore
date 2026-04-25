@@ -11,6 +11,6 @@ __pycache__/
 venv/
 .venv/
 
+
 CahierDesCharges.txt
 test.py
-main.spec
