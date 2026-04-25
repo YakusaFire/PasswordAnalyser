@@ -99,7 +99,7 @@ def check_dico(password):
 
 def check_suite(password):
     """
-    Vérifie que le mot de passe contient ne contient pas de liste suite
+    Vérifie que le mot de passe contient ne contient pas de liste suite par rapport à leur position dans la table ASCI
     :param password:
     :return bool:
     """
