@@ -152,7 +152,7 @@ def generate_perfect_password(length=16):
 
     return "".join(password)
 
-
+# Interface graphique
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -183,15 +183,27 @@ class App(ctk.CTk):
 
         # Zone de texte mot de passe généré
         self.gen_text = ctk.CTkTextbox(self, width=350, height=20)
-        self.gen_text.pack(pady=10)
+        self.gen_text.pack(pady=(30, 5))
+
+        # Label taille mot de passe généré
+        self.slider_label = ctk.CTkLabel(self, text="Longueur : 16", font=("Roboto", 14))
+        self.slider_label.pack(pady=5)
+
+        # Slider mot de passe généré
+        self.len_slider = ctk.CTkSlider(self, from_=8, to=32, number_of_steps=24, command=self.update_slider_label)
+        self.len_slider.set(16)
+        self.len_slider.pack(pady=5)
 
         # Bouton de génération
         self.gen_button = ctk.CTkButton(self, text="Générer un mot de passe parfait", command=self.fill_generated)
-        self.gen_button.pack(pady=20)
+        self.gen_button.pack(pady=5)
 
         # Bouton copier mot de passe
         self.copy_button = ctk.CTkButton(self, text="Copier mot de passe parfait", command=self.copy_mdp)
         self.copy_button.pack(pady=5)
+
+    def update_slider_label(self):
+        self.slider_label.configure(text=f"Longueur : {int(self.len_slider.get())}")
 
     def copy_mdp(self):
         """
@@ -214,7 +226,7 @@ class App(ctk.CTk):
         score = 0
         feedback = []
 
-        # Application de tes tests
+        # Application des tests
         if check_chiffre(password):
             score += 20
         else:
@@ -273,7 +285,7 @@ class App(ctk.CTk):
         """
         Permet de générer un mot de passe parfait
         """
-        new_pass = generate_perfect_password()
+        new_pass = generate_perfect_password(int(self.len_slider.get()))
         self.gen_text.delete(1.0, "end")
         self.gen_text.insert(1.0, new_pass)
 
