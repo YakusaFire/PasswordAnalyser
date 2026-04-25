@@ -209,11 +209,11 @@ class App(ctk.CTk):
 
         if not check_dico(password):
             score -= 50
-            feedback.append("⚠️ MOT DU DICTIONNAIRE DÉTECTÉ")
+            feedback.append("MOT DU DICTIONNAIRE DÉTECTÉ")
 
         if not check_suite(password):
             score -= 50
-            feedback.append("⚠️ SUITE LOGIQUE DÉTECTÉE")
+            feedback.append("SUITE LOGIQUE DÉTECTÉE")
 
         actual_score = max(0, score)
 
