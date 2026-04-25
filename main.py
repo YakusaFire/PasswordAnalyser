@@ -194,12 +194,18 @@ class App(ctk.CTk):
         self.copy_button.pack(pady=5)
 
     def copy_mdp(self):
+        """
+        Permet de copier ce que contient la TextBox dans le clipboard
+        """
         password = self.gen_text.get(1.0, "end-1c")
         pyperclip.copy(password)
         self.gen_text.delete("1.0", "end")
         self.gen_text.insert("1.0", "✅ Mot de passe copié !")
 
     def update_analysis(self, event=None):
+        """
+        Permet de mettre a jour l'analyse du mot de passe en continu
+        """
         password = self.entry.get()
         if not password:
             self.progressbar.set(0)
@@ -264,10 +270,12 @@ class App(ctk.CTk):
             self.result_text.insert("1.0", "\n".join(feedback))
 
     def fill_generated(self):
+        """
+        Permet de générer un mot de passe parfait
+        """
         new_pass = generate_perfect_password()
         self.gen_text.delete(1.0, "end")
         self.gen_text.insert(1.0, new_pass)
-        self.update_analysis()
 
 if __name__ == "__main__":
      app = App()
