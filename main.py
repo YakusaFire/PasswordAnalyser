@@ -208,6 +208,9 @@ class App(ctk.CTk):
         self.copy_button.pack(pady=5)
 
     def update_slider_label(self, valeur):
+        """
+        Met à jour le label qui affiche la longueur du slider
+        """
         self.slider_label.configure(text=f"Longueur : {int(valeur)}")
 
     def copy_mdp(self):
