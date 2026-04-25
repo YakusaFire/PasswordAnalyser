@@ -2,6 +2,7 @@ import getpass
 from math import log2
 
 DICO_PATH = "dictionary.txt"
+print("Mettez '?' pour crée un mot de passe aléatoire")
 PASSWD = getpass.getpass('Votre mot de passe: ')
 SPECIAL_CARACT = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
@@ -99,10 +100,47 @@ def check_suite(password):
     return True
 
 def calcul_entropie(password):
+    """
+    Permet de calculer la force mathématique de votre mot de passe
+    :param password:
+    :return float:
+    """
     L = len(password)
     R = 90
     entropie = L * log2(R)
     return round(entropie, 2)
+
+
+import secrets
+import string
+
+
+def generate_perfect_password(length=16):
+    """
+    Permet de générer le mot de passe parfait
+    :param length:
+    :return str:
+    """
+    minuscules = string.ascii_lowercase
+    majuscules = string.ascii_uppercase
+    chiffres = string.digits
+    speciaux = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+
+    password = [
+        secrets.choice(minuscules),
+        secrets.choice(majuscules),
+        secrets.choice(chiffres),
+        secrets.choice(speciaux)
+    ]
+
+    tous_les_caracteres = minuscules + majuscules + chiffres + speciaux
+    for _ in range(length - 4):
+        password.append(secrets.choice(tous_les_caracteres))
+
+
+    secrets.SystemRandom().shuffle(password)
+
+    return "".join(password)
 
 def main_check(password):
     """
@@ -157,4 +195,7 @@ if __name__ == "__main__":
     if len(PASSWD) == 0:
         print("Rentrer un mot de passe")
         quit()
-    main_check(PASSWD)
+    if PASSWD == "?":
+        print(generate_perfect_password(length=16))
+    else:
+        main_check(PASSWD)
