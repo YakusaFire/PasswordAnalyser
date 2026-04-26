@@ -200,6 +200,9 @@ class App(ctk.CTk):
         self.entropy_time = ctk.CTkLabel(self.entropy_frame, text="Cassé en : 0 seconds", font=("Roboto", 14))
         self.entropy_time.pack(side="left", padx=10)
 
+        # Button reset
+        self.reset_button = ctk.CTkButton(self, text="Reset", width=20, fg_color="red", command=self.reset)
+        self.reset_button.pack(pady=5)
 
         # Titre section mot de passe généré
         self.title2_label = ctk.CTkLabel(self, text="Générer mot de passe parfait", font=("Roboto", 24))
@@ -229,6 +232,18 @@ class App(ctk.CTk):
         # Bouton copier mot de passe
         self.copy_button = ctk.CTkButton(self.gen_frame, text="Copier", command=self.copy_mdp, width=20)
         self.copy_button.pack(side="left", padx=5)
+
+
+    def reset(self):
+        """
+        Remet tous l'interface graphique d'origine
+        """
+        self.entry.configure(show="*")
+        self.entry.delete(0, "end")
+        self.result_text.delete(1.0, "end")
+        self.entropy_time.configure(text="Cassé en : 0 seconds")
+        self.entropy_label.configure(text="Entropie : 0 bits")
+        self.progressbar.set(0)
 
     def show_mdp(self):
         """
@@ -270,7 +285,7 @@ class App(ctk.CTk):
         if jours < 365: return f"{int(jours)} jours"
         return f"{int(jours / 365)} ans"
 
-    def update_analysis(self):
+    def update_analysis(self, event=None):
         """
         Permet de mettre à jour l'analyse du mot de passe en continu
         """
