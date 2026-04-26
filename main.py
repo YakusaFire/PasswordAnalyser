@@ -175,7 +175,9 @@ class App(ctk.CTk):
         self.entry.pack(side="left", padx=10)
         self.entry.bind("<KeyRelease>", self.update_analysis)
 
-
+        # Bouton show
+        self.show_button = ctk.CTkButton(self.entry_frame, command=self.show_mdp, text="Show", width=20)
+        self.show_button.pack(side="left", padx=10)
 
         # Barre de progression du score
         self.progressbar = ctk.CTkProgressBar(self, width=350)
@@ -219,6 +221,14 @@ class App(ctk.CTk):
         # Bouton copier mot de passe
         self.copy_button = ctk.CTkButton(self.gen_frame, text="Copier", command=self.copy_mdp, width=20)
         self.copy_button.pack(side="left", padx=5)
+
+    def show_mdp(self):
+        if self.show == "*":
+            self.entry.configure(show="")
+            self.show = ""
+        else:
+            self.entry.configure(show="*")
+            self.show = "*"
 
     def update_slider_label(self, valeur):
         """
