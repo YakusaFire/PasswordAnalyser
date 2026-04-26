@@ -7,7 +7,6 @@ from secrets import choice, SystemRandom
 from string import ascii_lowercase, ascii_uppercase, digits
 
 
-
 def resource_path(relative_path):
     """ Récupère le chemin absolu des ressources (pour PyInstaller) """
     try:
@@ -25,6 +24,7 @@ with open(DICO_PATH, "r", encoding="utf-8") as f:
     DICO = set(ligne.strip().lower() for ligne in f if ligne.strip())
 
 
+
 def check_len(password):
     """
     Vérifie si la taille du mot de passe est supérieur à 12 caractères
@@ -35,6 +35,7 @@ def check_len(password):
         return False
     else:
         return True
+
 
 def check_chiffre(password):
     """
@@ -48,6 +49,7 @@ def check_chiffre(password):
 
     return False
 
+
 def check_maj(password):
     """
     Vérifie que le mot de passe contient une majuscule
@@ -59,6 +61,7 @@ def check_maj(password):
             return True
 
     return False
+
 
 def check_minus(password):
     """
@@ -72,6 +75,7 @@ def check_minus(password):
 
     return False
 
+
 def check_special(password):
     """
     Vérifie que le mot de passe contient au moins un caractère spécial
@@ -83,6 +87,7 @@ def check_special(password):
             return True
 
     return False
+
 
 def check_dico(password):
     """
@@ -97,6 +102,7 @@ def check_dico(password):
             return False
 
     return True
+
 
 def check_suite(password):
     """
@@ -114,6 +120,7 @@ def check_suite(password):
 
     return True
 
+
 def calcul_entropie(password):
     """
     Permet de calculer la force mathématique de votre mot de passe
@@ -124,6 +131,7 @@ def calcul_entropie(password):
     R = 90
     entropie = L * log2(R)
     return round(entropie, 2)
+
 
 def generate_perfect_password(length=16):
     """
@@ -153,6 +161,8 @@ def generate_perfect_password(length=16):
 
     return "".join(password)
 
+
+
 # Interface graphique
 class App(ctk.CTk):
     def __init__(self):
@@ -168,7 +178,6 @@ class App(ctk.CTk):
         # Frame entry et show
         self.entry_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.entry_frame.pack(pady=10)
-
 
         # Mot de passe
         self.entry = ctk.CTkEntry(self.entry_frame, placeholder_text="Entrer le mot de passe", width=350, show=self.show)
@@ -203,6 +212,8 @@ class App(ctk.CTk):
         # Button reset
         self.reset_button = ctk.CTkButton(self, text="Reset", width=20, fg_color="red", command=self.reset)
         self.reset_button.pack(pady=5)
+
+
 
         # Titre section mot de passe généré
         self.title2_label = ctk.CTkLabel(self, text="Générer mot de passe parfait", font=("Roboto", 24))
@@ -245,6 +256,7 @@ class App(ctk.CTk):
         self.entropy_label.configure(text="Entropie : 0 bits")
         self.progressbar.set(0)
 
+
     def show_mdp(self):
         """
         Permet d'afficher le mot de passe contenue dans l'entrée
@@ -256,11 +268,13 @@ class App(ctk.CTk):
             self.entry.configure(show="*")
             self.show = "*"
 
+
     def update_slider_label(self, valeur):
         """
         Met à jour le label qui affiche la longueur du slider
         """
         self.slider_label.configure(text=f"Longueur : {int(valeur)}")
+
 
     def copy_mdp(self):
         """
@@ -269,6 +283,7 @@ class App(ctk.CTk):
         password = self.gen_text.get(1.0, "end-1c")
         pyperclip.copy(password)
         self.copy_button.configure(fg_color="green")
+
 
     def get_time_to_crack(self):
         """
@@ -284,6 +299,7 @@ class App(ctk.CTk):
         jours = secondes / 86400
         if jours < 365: return f"{int(jours)} jours"
         return f"{int(jours / 365)} ans"
+
 
     def update_analysis(self, event=None):
         """
@@ -354,6 +370,7 @@ class App(ctk.CTk):
         else:
             self.result_text.insert("1.0", "\n".join(feedback))
 
+
     def fill_generated(self):
         """
         Permet de mettre dans la TextBox le mot de passe généré
@@ -362,6 +379,7 @@ class App(ctk.CTk):
         self.gen_text.delete(1.0, "end")
         self.gen_text.insert(1.0, new_pass)
         self.copy_button.configure(fg_color="#1F538D")
+
 
 if __name__ == "__main__":
      app = App()
