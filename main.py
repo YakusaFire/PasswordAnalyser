@@ -200,13 +200,17 @@ class App(ctk.CTk):
         self.len_slider.set(16)
         self.len_slider.pack(pady=5)
 
+        # Frame bouton généré
+        self.gen_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.gen_frame.pack(pady=5)
+
         # Bouton de génération
-        self.gen_button = ctk.CTkButton(self, text="Générer un mot de passe parfait", command=self.fill_generated)
-        self.gen_button.pack(pady=5)
+        self.gen_button = ctk.CTkButton(self.gen_frame, text="Générer un mot de passe parfait", command=self.fill_generated)
+        self.gen_button.pack(side="left", padx=5)
 
         # Bouton copier mot de passe
-        self.copy_button = ctk.CTkButton(self, text="Copier mot de passe parfait", command=self.copy_mdp)
-        self.copy_button.pack(pady=5)
+        self.copy_button = ctk.CTkButton(self.gen_frame, text="Copier", command=self.copy_mdp, width=20)
+        self.copy_button.pack(side="left", padx=5)
 
     def update_slider_label(self, valeur):
         """
@@ -292,7 +296,7 @@ class App(ctk.CTk):
 
     def fill_generated(self):
         """
-        Permet de générer un mot de passe parfait
+        Permet de mettre dans la TextBox le mot de passe généré
         """
         new_pass = generate_perfect_password(int(self.len_slider.get()))
         self.gen_text.delete(1.0, "end")
