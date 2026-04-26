@@ -14,3 +14,9 @@ Pour crée un exe:
 packet nécessaire:
     
     xclip
+
+
+
+
+
+CREDIT: https://github.com/tarraschk/richelieu pour les mots de passe français courant
