@@ -19,4 +19,4 @@ packet nécessaire:
 
 
 
-CREDIT: https://github.com/tarraschk/richelieu pour les mots de passe français courant
+CREDIT : https://github.com/tarraschk/richelieu pour les mots de passe français courant
