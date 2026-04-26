@@ -158,7 +158,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title = "PasswordAnalyser"
-        self.geometry = "500x600"
+        self.geometry = "520x750"
         self.show = "*"
 
         # Titre
@@ -231,6 +231,9 @@ class App(ctk.CTk):
         self.copy_button.pack(side="left", padx=5)
 
     def show_mdp(self):
+        """
+        Permet de afficher le mot de passe contenue dans l'entry
+        """
         if self.show == "*":
             self.entry.configure(show="")
             self.show = ""
@@ -253,6 +256,9 @@ class App(ctk.CTk):
         self.copy_button.configure(fg_color="green")
 
     def get_time_to_crack(self):
+        """
+        Permet d'obtenir le temps avec le quelle un mot de passe peut être cassé
+        """
         # Basé sur une RTX 4090 (env. 100 milliards de hash/sec)
         combinaisons = 2 ** calcul_entropie(self.entry.get())
         secondes = combinaisons / 1e11
