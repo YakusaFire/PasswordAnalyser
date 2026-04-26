@@ -242,8 +242,7 @@ class App(ctk.CTk):
         """
         password = self.gen_text.get(1.0, "end-1c")
         pyperclip.copy(password)
-        self.gen_text.delete("1.0", "end")
-        self.gen_text.insert("1.0", "✅ Mot de passe copié !")
+        self.copy_button.configure(fg_color="green")
 
     def update_analysis(self, event=None):
         """
@@ -319,6 +318,7 @@ class App(ctk.CTk):
         new_pass = generate_perfect_password(int(self.len_slider.get()))
         self.gen_text.delete(1.0, "end")
         self.gen_text.insert(1.0, new_pass)
+        self.copy_button.configure(fg_color="#1F538D")
 
 if __name__ == "__main__":
      app = App()
