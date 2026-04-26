@@ -232,7 +232,7 @@ class App(ctk.CTk):
 
     def show_mdp(self):
         """
-        Permet de afficher le mot de passe contenue dans l'entry
+        Permet d'afficher le mot de passe contenue dans l'entrée
         """
         if self.show == "*":
             self.entry.configure(show="")
@@ -270,7 +270,7 @@ class App(ctk.CTk):
         if jours < 365: return f"{int(jours)} jours"
         return f"{int(jours / 365)} ans"
 
-    def update_analysis(self, event=None):
+    def update_analysis(self):
         """
         Permet de mettre à jour l'analyse du mot de passe en continu
         """
