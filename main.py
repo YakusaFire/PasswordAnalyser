@@ -159,15 +159,23 @@ class App(ctk.CTk):
         super().__init__()
         self.title = "PasswordAnalyser"
         self.geometry = "500x600"
+        self.show = "*"
 
-        #Titre
+        # Titre
         self.label = ctk.CTkLabel(self, text="Password Analyser", font=("Roboto", 24, "bold"))
         self.label.pack(pady=20)
 
-        #Mot de passe
-        self.entry = ctk.CTkEntry(self, placeholder_text="Entrer le mot de passe", width=350, show="*")
-        self.entry.pack(pady=10)
+        # Frame entry et show
+        self.entry_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.entry_frame.pack(pady=10)
+
+
+        # Mot de passe
+        self.entry = ctk.CTkEntry(self.entry_frame, placeholder_text="Entrer le mot de passe", width=350, show=self.show)
+        self.entry.pack(side="left", padx=10)
         self.entry.bind("<KeyRelease>", self.update_analysis)
+
+
 
         # Barre de progression du score
         self.progressbar = ctk.CTkProgressBar(self, width=350)
