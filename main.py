@@ -17,13 +17,22 @@ def resource_path(relative_path):
 
 # Modifie ta variable DICO_PATH ainsi :
 DICO_PATH = resource_path("dictionary.txt")
+FRENCH_PATH = resource_path("french_passwords_top20000.txt")
 SPECIAL_CHART = "!@#$%^&*()_+-=[]{}|;:,.<>?"
 
 
 with open(DICO_PATH, "r", encoding="utf-8") as f:
     DICO = set(ligne.strip().lower() for ligne in f if ligne.strip())
 
+with open(FRENCH_PATH, "r", encoding="utf-8") as f:
+    FRENCH_PASSWD = set(ligne.strip().lower() for ligne in f if ligne.strip())
 
+
+def check_frenchpasswd(password):
+    for mot in FRENCH_PASSWD:
+        if password.lower() == mot.lower():
+            return False
+    return True
 
 def check_len(password):
     """
@@ -314,6 +323,10 @@ class App(ctk.CTk):
         feedback = []
 
         # Application des tests
+        if not check_frenchpasswd(password):
+            score -= 1000
+            feedback.append("- Mot de passe couramment utilisé")
+
         if check_chiffre(password):
             score += 20
         else:
