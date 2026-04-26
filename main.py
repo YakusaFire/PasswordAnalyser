@@ -188,9 +188,17 @@ class App(ctk.CTk):
         self.result_text = ctk.CTkTextbox(self, width=350, height=150)
         self.result_text.pack(pady=10)
 
+        # Frame entropie
+        self.entropy_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.entropy_frame.pack(pady=5)
+
         # Labels pour l'entropie
-        self.entropy_label = ctk.CTkLabel(self, text="Entropie : 0 bits", font=("Roboto", 14))
-        self.entropy_label.pack(pady=5)
+        self.entropy_label = ctk.CTkLabel(self.entropy_frame, text="Entropie : 0 bits", font=("Roboto", 14))
+        self.entropy_label.pack(side="left", padx=10)
+
+        # Labels time to crack
+        self.entropy_time = ctk.CTkLabel(self.entropy_frame, text="Cassé en : 0 seconds", font=("Roboto", 14))
+        self.entropy_time.pack(side="left", padx=10)
 
 
         # Titre section mot de passe généré
@@ -316,6 +324,8 @@ class App(ctk.CTk):
             self.progressbar.configure(progress_color="green")
 
         self.entropy_label.configure(text=f"Entropie : {calcul_entropie(password)} bits")
+        self.entropy_time.configure(text=f"Cassé en : {self.get_time_to_crack()}")
+
 
         self.result_text.delete("1.0", "end")
         if not feedback:
