@@ -14,6 +14,8 @@ Pour crée un exe:
 packet nécessaire:
     
     xclip
+    pyperclip
+    customtkinter
 
 
 
